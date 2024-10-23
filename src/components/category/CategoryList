@@ -1,0 +1,15 @@
+const handleDeleteCategory = async (id) => {
+  try {
+    const response = await axios.delete(
+      `https://grad-ecommerce.onrender.com/api/category/${id}`
+    );
+    if (response.data.status) {
+      // Remove the category from the list
+      fetchCategories();
+    } else {
+      console.error("Failed to delete category");
+    }
+  } catch (error) {
+    console.error("Error deleting category", error);
+  }
+};
