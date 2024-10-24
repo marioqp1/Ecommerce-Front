@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../css/styles.css';
 
 const Signup = () => {
     const [isCompany, setIsCompany] = useState(false);
@@ -41,11 +42,11 @@ const Signup = () => {
         const apiEndpoint = isCompany ? '/api/signup/company' : '/api/signup/client';
     
         try {
-            const response = await axios.post(`http://localhost:8080${apiEndpoint}`, formData);
+            const response = await axios.post(`https://grad-ecommerce-production.up.railway.app${apiEndpoint}`, formData);
     
             if (response.data.status) {
                 // Save the token to localStorage (or sessionStorage)
-                localStorage.setItem('authToken', response.data.token);
+                //localStorage.setItem('authToken', response.data);
                 setMessage('Signup successful! Redirecting...');
                 
                 // Redirect user to login or dashboard
@@ -73,7 +74,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="signup-container">
+        <div div className="signup-page">
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
                 <div>

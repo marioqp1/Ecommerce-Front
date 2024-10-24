@@ -1,0 +1,172 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Buttons */
+.btn {
+    background-color: green; /* Default button color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Login and Signup Page Styles */
+.login-page, .signup-page {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-page input, .signup-page input {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-page .btn, .signup-page .btn {
+    width: 100%;
+    background-color: #28a745;
+}
+
+.login-page .btn:hover, .signup-page .btn:hover {
+    background-color: #218838;
+}
+
+/* Categories page specific styles */
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories-list li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    padding: 15px;
+    text-align: center;
+    width: 180px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.categories-list li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.categories-list img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.categories-list li p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Drugs page specific styles */
+.drugs-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.drugs-list li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.drugs-list li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.drugs-list img {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.drugs-list h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.drugs-list p {
+    font-size: 1em;
+    color: #777;
+    margin: 5px 0;
+}
+
+.drugs-list .price {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.drugs-list .stock {
+    font-weight: bold;
+}
+
+.drugs-list .stock.available {
+    color: #28a745;
+}
+
+.drugs-list .stock.unavailable {
+    color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .categories-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .drugs-list {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}

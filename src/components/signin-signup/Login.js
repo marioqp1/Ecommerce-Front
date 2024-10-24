@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../css/styles.css'; // Add this import for the CSS file
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -25,15 +26,43 @@ const Login = () => {
         setMessage('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/login', formData);
+            // Send login request
+            const loginResponse = await axios.post('https://grad-ecommerce-production.up.railway.app/api/login', formData);
+            
 
-            if (response.data.token) {
-                // Save the token in localStorage or sessionStorage
-                localStorage.setItem('token', response.data.token);
+            if (loginResponse.status) {
+                // Save the token in localStorage
+                const token = loginResponse.data;  // Ensure the token is a string
+                localStorage.setItem('token', token);
 
                 setMessage('Login successful!');
-                // Redirect to another page after login (e.g., dashboard or home page)
-                navigate('/dashboard');
+
+                // Prepare token for role request
+                const tokenDTO = { token:token.data };
+            
+                console.log(tokenDTO.data);
+
+                // Send the token in the body as JSON to get the user role
+                const roleResponse = await axios.post(
+                    `http://localhost:8080/api/user/role`,
+                    tokenDTO // Send token in request body
+                );
+
+                const userRole = roleResponse.data.data;
+                console.log(userRole);
+
+                // Redirect based on the user's role
+                if (userRole === 'ROLE_CLIENT') {
+                    //ROLE_CLIENT
+                
+                    navigate('/');
+                } else if (userRole === 'ROLE_ADMIN') {
+                    //navigate('/admin');
+                } else if (userRole === 'ROLE_COMPANY') {
+                    //navigate('/company');
+                } else {
+                    setMessage('Unknown role. Please contact support.');
+                }
             } else {
                 setMessage('Login failed: Invalid credentials');
             }
@@ -52,7 +81,7 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
+        <div className="login-page">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
