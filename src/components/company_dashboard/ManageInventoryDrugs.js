@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getInventoryDrugsForBranch, createInventoryDrug, deleteInventoryDrug, getCompanyById, getBranchesByPharmacyId, getDrugs } from './Apis';
+import { getInventoryDrugsForBranch, createInventoryDrug, updateInventoryDrug, deleteInventoryDrug, getCompanyById, getBranchesByPharmacyId, getDrugs } from './Apis';
 import './css/ManageInventoryDrugs.css'; // Import the CSS file
 
 const ManageInventoryDrugs = () => {
   const [inventoryDrugs, setInventoryDrugs] = useState([]);
   const [company, setCompany] = useState({});
   const [branches, setBranches] = useState([]);
-  const [selectedBranchId, setSelectedBranchId] = useState('');
   const [drugs, setDrugs] = useState([]);
+  const [selectedBranchId, setSelectedBranchId] = useState('');
   const [newInventoryDrug, setNewInventoryDrug] = useState({
     drugId: '',
     price: 0,
@@ -31,14 +31,6 @@ const ManageInventoryDrugs = () => {
   }, []);
 
   useEffect(() => {
-    const fetchDrugs = async () => {
-      const response = await getDrugs();
-      setDrugs(response.data.data); // Assuming your response structure
-    };
-    fetchDrugs();
-  }, []);
-
-  useEffect(() => {
     const fetchInventoryDrugs = async () => {
       if (selectedBranchId) {
         const response = await getInventoryDrugsForBranch(selectedBranchId);
@@ -47,6 +39,14 @@ const ManageInventoryDrugs = () => {
     };
     fetchInventoryDrugs();
   }, [selectedBranchId]);
+
+  useEffect(() => {
+    const fetchDrugs = async () => {
+      const response = await getDrugs();
+      setDrugs(response.data.data); // Assuming your response structure
+    };
+    fetchDrugs();
+  }, []);
 
   const handleAddInventoryDrug = async (e) => {
     e.preventDefault();
@@ -61,6 +61,16 @@ const ManageInventoryDrugs = () => {
       });
     } catch (error) {
       console.error('Error adding inventory drug:', error);
+    }
+  };
+
+  const handleUpdateInventoryDrug = async (id) => {
+    try {
+      const response = await updateInventoryDrug(id, { ...newInventoryDrug, branchId: selectedBranchId });
+      console.log(response.data);
+      setInventoryDrugs(inventoryDrugs.map(drug => (drug.id === id ? response.data.data : drug))); // Update state with updated inventory drug
+    } catch (error) {
+      console.error('Error updating inventory drug:', error);
     }
   };
 
@@ -97,15 +107,15 @@ const ManageInventoryDrugs = () => {
       </div>
       <h3>Add New Inventory Drug</h3>
       <form onSubmit={handleAddInventoryDrug} className="inventory-drug-form">
-        <label>Select Drug: </label>
-        <select name="drugId" value={newInventoryDrug.drugId} onChange={handleChange}>
-          <option value="">Select Drug</option>
+        <label htmlFor="drugId">Drug:</label>
+        <select name="drugId" onChange={handleChange} value={newInventoryDrug.drugId}>
           {drugs.map(drug => (
             <option key={drug.id} value={drug.id}>
               {drug.drugName}
             </option>
           ))}
         </select>
+        <label htmlFor="price">Price:</label>
         <input
           type="number"
           name="price"
@@ -113,6 +123,7 @@ const ManageInventoryDrugs = () => {
           value={newInventoryDrug.price}
           onChange={handleChange}
         />
+        <label htmlFor="stock">Stock:</label>
         <input
           type="number"
           name="stock"
@@ -122,16 +133,30 @@ const ManageInventoryDrugs = () => {
         />
         <button type="submit">Add Inventory Drug</button>
       </form>
-      <ul className="inventory-drug-list">
-        {inventoryDrugs.map(drug => (
-          <li key={drug.id} className="inventory-drug-item">
-            <h3>{drug.drugName}</h3>
-            <p>Price: {drug.price}</p>
-            <p>Stock: {drug.stock}</p>
-            <button onClick={() => handleDeleteInventoryDrug(drug.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <h3>Inventory Drugs</h3>
+      <table className="inventory-drug-table">
+        <thead>
+          <tr>
+            <th>Drug Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {inventoryDrugs.map(drug => (
+            <tr key={drug.id}>
+              <td>{drug.drugName}</td>
+              <td>{drug.price}</td>
+              <td>{drug.stock}</td>
+              <td>
+                <button onClick={() => handleUpdateInventoryDrug(drug.id)}>Update</button>
+                <button onClick={() => handleDeleteInventoryDrug(drug.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -22,6 +22,8 @@
     margin-bottom: 20px;
   }
   
+  .inventory-drug-form label,
+  .inventory-drug-form select,
   .inventory-drug-form input,
   .inventory-drug-form button {
     padding: 10px;
@@ -35,22 +37,36 @@
     cursor: pointer;
   }
   
-  .inventory-drug-list {
-    list-style-type: none;
-    padding: 0;
+  .inventory-drug-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
   }
   
-  .inventory-drug-item {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
+  .inventory-drug-table th,
+  .inventory-drug-table td {
     padding: 10px;
+    border: 1px solid #ddd;
   }
   
-  .inventory-drug-item button {
-    background-color: #dc3545;
-    color: white;
+  .inventory-drug-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .inventory-drug-table td button {
+    margin-right: 5px;
+    padding: 10px;
     border: none;
     cursor: pointer;
-    padding: 10px;
+  }
+  
+  .inventory-drug-table td button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .inventory-drug-table td button:last-child {
+    background-color: #dc3545;
+    color: white;
   }
   
