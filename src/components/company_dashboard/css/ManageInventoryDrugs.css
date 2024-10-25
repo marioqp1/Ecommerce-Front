@@ -1,0 +1,56 @@
+.manage-inventory-drugs {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .company-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .company-logo {
+    max-width: 50px;
+  }
+  
+  .inventory-drug-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .inventory-drug-form input,
+  .inventory-drug-form button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .inventory-drug-form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .inventory-drug-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .inventory-drug-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .inventory-drug-item button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  

@@ -8,6 +8,9 @@ import AdminDashboard from './components/admin_dashboard/AdminDashboard';
 import ManageDrugs from './components/admin_dashboard/ManageDrugs';
 import ManageActiveIngredients from './components/admin_dashboard/ManageActiveIngredients';
 import ManageCategories from './components/admin_dashboard/ManageCategories';
+import ManageBranches from './components/company_dashboard/ManageBranches';
+import CompanyDashboard from './components/company_dashboard/CompanyDashboard';
+import ManageInventoryDrugs from './components/company_dashboard/ManageInventoryDrugs';
 
 // import DrugsForm from './components/admin_dashboard/Drugs';
 const App = () => {
@@ -23,6 +26,10 @@ const App = () => {
         <Route path="/admin-dashboard/manage-drugs" element={<ManageDrugs />} />
         <Route path="/admin-dashboard/manage-active-ingredients" element={<ManageActiveIngredients />} />
         <Route path="/admin-dashboard/manage-categories" element={<ManageCategories />} />
+        <Route path="/company-dashboard" element={<CompanyDashboard />} />
+        <Route path="/company-dashboard/manage-inventory" element={<ManageInventoryDrugs />} />
+        <Route path="/company-dashboard/manage-branches" element={<ManageBranches />} />
+        
         {/* <Route path="/admin-dashboard/test" element={<DrugsForm />} /> */}
         
       </Routes>

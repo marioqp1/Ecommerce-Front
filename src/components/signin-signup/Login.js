@@ -54,12 +54,11 @@ const Login = () => {
                 // Redirect based on the user's role
                 if (userRole === 'ROLE_CLIENT') {
                     //ROLE_CLIENT
-                
                     navigate('/');
                 } else if (userRole === 'ROLE_ADMIN') {
                     navigate('/admin-dashboard');
                 } else if (userRole === 'ROLE_COMPANY') {
-                    //navigate('/company');
+                    navigate('/company-dashboard');
                 } else {
                     setMessage('Unknown role. Please contact support.');
                 }
