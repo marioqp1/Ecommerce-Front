@@ -1,0 +1,46 @@
+.manage-active-ingredients {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .active-ingredient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .active-ingredient-form input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .active-ingredient-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .active-ingredient-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .active-ingredient-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .active-ingredient-item button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  

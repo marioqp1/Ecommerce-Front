@@ -32,19 +32,19 @@ const Login = () => {
 
             if (loginResponse.status) {
                 // Save the token in localStorage
-                const token = loginResponse.data;  // Ensure the token is a string
+                const token = loginResponse.data.data;  // Ensure the token is a string
                 localStorage.setItem('token', token);
-
                 setMessage('Login successful!');
-
+                console.log(token);
+                console.log('firsrt');
                 // Prepare token for role request
-                const tokenDTO = { token:token.data };
+                const tokenDTO = { token:token};
             
                 console.log(tokenDTO.data);
 
                 // Send the token in the body as JSON to get the user role
                 const roleResponse = await axios.post(
-                    `http://localhost:8080/api/user/role`,
+                    `https://grad-ecommerce-production.up.railway.app/api/user/role`,
                     tokenDTO // Send token in request body
                 );
 
@@ -57,7 +57,7 @@ const Login = () => {
                 
                     navigate('/');
                 } else if (userRole === 'ROLE_ADMIN') {
-                    //navigate('/admin');
+                    navigate('/admin-dashboard');
                 } else if (userRole === 'ROLE_COMPANY') {
                     //navigate('/company');
                 } else {

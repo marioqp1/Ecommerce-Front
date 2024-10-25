@@ -1,0 +1,52 @@
+.manage-categories {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .category-form input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .category-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .category-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .category-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .category-item img {
+    max-width: 100px;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .category-item button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
