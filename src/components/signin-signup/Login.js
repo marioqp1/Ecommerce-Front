@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../../css/styles.css'; // Add this import for the CSS file
+import './LoginPage.css'; // Add this import for the CSS file
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -67,8 +67,8 @@ const Login = () => {
             }
         } catch (error) {
             console.error('Login error:', error);
-            const errorMessage = error.response?.data?.message || 'Something went wrong';
-            setMessage('Login failed: ' + errorMessage);
+            //const errorMessage = error.response?.data?.message || 'Something went wrong';
+            setMessage('Login failed ');
         } finally {
             setLoading(false);
         }
