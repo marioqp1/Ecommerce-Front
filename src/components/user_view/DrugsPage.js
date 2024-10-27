@@ -12,7 +12,7 @@ const DrugsPage = () => {
 
     useEffect(() => {
       
-        axios.get(`http://localhost:8080/api/drugs-view/category/${categoryId}`, {
+        axios.get(`https://grad-ecommerce-production.up.railway.app/api/drugs-view/category/${categoryId}`, {
             headers: {
                 // Token is still commented out here as per your changes
                 // Authorization: `Bearer ${token}`,
