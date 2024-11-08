@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createCategory, deleteCategory, getCategories } from './api';
-import './css/ManageCategories.css'; // Import the CSS file for categories
+import './css/ManageCategories.css'; 
 
 const ManageCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [newCategory, setNewCategory] = useState({
-    categoryName: '',
-    logo: ''
-  });
-  const [imageFile, setImageFile] = useState(null); // State to store the selected file
+  const [newCategory, setNewCategory] = useState({ categoryName: '', logo: '' });
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(null); // To track the delete loading for each category
 
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await getCategories();
-      setCategories(response.data.data); // Assuming your response structure
+      setCategories(response.data.data); 
     };
     fetchCategories();
   }, []);
@@ -30,7 +29,7 @@ const ManageCategories = () => {
     formData.append('imageFile', imageFile);
 
     try {
-      const response = await axios.post('https://grad-ecommerce-production.up.railway.app/api/images/upload', formData, {
+      const response = await axios.post('https://your-api-url/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -44,31 +43,33 @@ const ManageCategories = () => {
 
   const handleAddCategory = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const imageURL = await handleUploadImage();
     if (imageURL) {
       try {
         const categoryData = { ...newCategory, logo: imageURL };
         const response = await createCategory(categoryData);
-        console.log(response.data);
-        setCategories([...categories, response.data.data]); // Update state with new category
-        setNewCategory({
-          categoryName: '',
-          logo: ''
-        });
+        setCategories([...categories, response.data.data]);
+        setNewCategory({ categoryName: '', logo: '' });
         setImageFile(null);
       } catch (error) {
         console.error('Error adding category:', error);
       }
     }
+
+    setLoading(false);
   };
 
   const handleDeleteCategory = async (id) => {
+    setDeleteLoading(id); // Set the loading state for the category being deleted
     try {
       await deleteCategory(id);
-      setCategories(categories.filter(category => category.id !== id)); // Remove deleted category from state
+      setCategories(categories.filter(category => category.id !== id));
     } catch (error) {
       console.error('Error deleting category:', error);
     }
+    setDeleteLoading(null); // Reset the loading state after the operation
   };
 
   return (
@@ -81,19 +82,30 @@ const ManageCategories = () => {
           placeholder="Category Name" 
           value={newCategory.categoryName} 
           onChange={(e) => setNewCategory({ ...newCategory, categoryName: e.target.value })} 
+          required 
         />
         <input 
           type="file" 
+          accept="image/*" 
           onChange={handleFileChange} 
+          required 
         />
-        <button type="submit">Add Category</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <span className="button-loading"></span> : 'Add Category'}
+        </button>
       </form>
+      
       <ul className="category-list">
         {categories.map(category => (
           <li key={category.id} className="category-item">
+            <img src={category.logo} alt={category.categoryName} />
             <h3>{category.categoryName}</h3>
-            {category.logo && <img src={category.logo} alt={category.categoryName} className="category-logo" />}
-            <button onClick={() => handleDeleteCategory(category.id)}>Delete</button>
+            <button 
+              onClick={() => handleDeleteCategory(category.id)} 
+              disabled={deleteLoading === category.id}
+            >
+              {deleteLoading === category.id ? <span className="button-loading"></span> : 'Delete'}
+            </button>
           </li>
         ))}
       </ul>
